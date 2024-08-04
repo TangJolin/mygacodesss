@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3e4e4;
+        }
+
+        header {
+            background-color: #f8d9e0;
+            padding: 10px 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .result-item {
+            margin-bottom: 1em;
+            padding: 0.5em;
+            border: 1px solid #ddd;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        footer {
+            background-color: #f8d9e0;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">About</a>
+                    <div class="dropdown-content">
+                        <a href="about-me.html">About Me</a>
+                        <a href="who-we-serve.html">Who We Serve</a>
+                        <a href="our-reviews.html">Our Reviews</a>
+                        <a href="our-services.html">Our Services</a>
+                    </div>
+                </li>
+                <li><a href="index.html">My Account</a></li>
+                <li class="search-bar">
+                    <form action="search.html" method="get">
+                        <input type="text" id="searchQuery" name="searchQuery" placeholder="Search..." required />
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Search Results</h1>
+        <div id="results"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Myspace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark class="highlight">$1</mark>');
+        }
+
+        function getSearchResults(query) {
+            // Define the pages and their titles that might contain the search results
+            const pages = [
+                { title: 'About Me', url: 'about-me.html', content: 'Information about me and my background.' },
+                { title: 'Who We Serve', url: 'who-we-serve.html', content: 'Details about the target audience we serve.' },
+                { title: 'Our Reviews', url: 'our-reviews.html', content: 'Customer feedback and testimonials.' },
+                { title: 'Our Services', url: 'our-services.html', content: 'Description of the services we offer.' }
+            ];
+
+            // Filter pages based on the query
+            const results = pages.filter(page => 
+                page.title.toLowerCase().includes(query) || 
+                page.content.toLowerCase().includes(query)
+            );
+
+            // Generate HTML for the search results
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    
+                    // Highlight the matched text in title and content
+                    const highlightedTitle = highlightText(result.title, query);
+                    const highlightedContent = highlightText(result.content, query);
+
+                    resultItem.innerHTML = `
+                        <h2>${highlightedTitle}</h2>
+                        <p>${highlightedContent}</p>
+                        <a href="${result.url}">Read more</a>
+                    `;
+
+                    resultsContainer.appendChild(resultItem);
+                });
+            } else {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+            }
+        }
+
+        // Get the search query from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('searchQuery').toLowerCase();
+
+        // Perform the search and display results
+        getSearchResults(query);
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e4e4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f8d9e0;
+            padding: 10px 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0d9d9;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .details {
+            font-size: 18px;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+
+        .confirm-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f8d9e0;
+            border: none;
+            border-radius: 5px;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .confirm-button:hover {
+            background-color: #f0b4b4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="index.html">My Account</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Payment Confirmation:</h2>
+            </div>
+            <div class="details">
+                <p><strong>Payment Method:</strong> <span id="payment-method"></span></p>
+                <p><strong> Total amount:</strong> $<span id="amount"></span></p>
+                <p><strong>Digital Wallet Balance:</strong> $<span id="digital-wallet-balance"></span></p>
+                <p><strong>Top Up Amount:</strong> $<span id="top-up-amount"></span></p>
+                <div>
+                <div>
+                    <p><strong>Top Up Amount:</strong> $<span id="top-up-amount"></span></p>
+                </div>
+                    <button class="confirm-button" onclick="window.location.href='2fa.html'">Confirm</button>
+                </div>
+            </div>
+        </main>
+    
+        <script>
+            // Retrieve payment details from localStorage
+            document.getElementById('payment-method').textContent = localStorage.getItem('paymentMethod') || 'N/A';
+            document.getElementById('amount').textContent = localStorage.getItem('amount') || '0';
+            document.getElementById('digital-wallet-balance').textContent = localStorage.getItem('digitalWalletBalance') || '0';
+            document.getElementById('top-up-amount').textContent = localStorage.getItem('topUpAmount') || '0';
+    
+            // Optionally, clear localStorage after displaying the information
+            localStorage.removeItem('paymentMethod');
+            localStorage.removeItem('topUpAmount');
+            localStorage.removeItem('amount');
+            localStorage.removeItem('digitalWalletBalance');
+        </script>
+    </body>
+    </html>
+    

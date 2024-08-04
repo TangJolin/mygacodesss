@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who We Serve - Myspace</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d9e0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f8d9e0;
+            padding: 10px 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav li {
+            margin: 0 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f8d9e0;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .search-bar button {
+            padding: 5px 10px;
+            font-size: 16px;
+            border: none;
+            background-color: #f8d9e0;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #f0b4b4;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .text-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .button-call {
+            border-radius: 50px;
+            padding: 10px;
+            background-color: lightpink;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .button-call:hover {
+            background-color: #f0b4b4;
+        }
+
+        footer {
+            background-color: #f8d9e0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">About</a>
+                    <div class="dropdown-content">
+                        <a href="about-me.html">About Me</a>
+                        <a href="who-we-serve.html">Who We Serve</a>
+                        <a href="our-reviews.html">Our Reviews</a>
+                        <a href="our-services.html">Our Services</a>
+                    </div>
+                </li>
+                <li class="search-bar">
+                    <input type="text" id="searchQuery" placeholder="Search...">
+                    <button id="searchButton">Search</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="text-content">
+            <h1>Protect Your Family, Protect Yourself.</h1>
+            <p id="content">We cater to a diverse range of users, including artists, freelancers, and small business owners. Whether you're a musician, photographer, videographer, or owner of a creative space, Myspace offers tailored financial solutions to meet your needs.</p>
+            <a href="mailto:contact@myspace.com" class="button-call">Email us</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Myspace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark class="highlight">$1</mark>');
+        }
+
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            const contentElement = document.getElementById('content');
+            const content = contentElement.textContent.toLowerCase();
+
+            if (content.includes(query)) {
+                contentElement.innerHTML = highlightText(contentElement.textContent, query);
+            } else {
+                contentElement.innerHTML = 'No results found.';
+            }
+        });
+    </script>
+</body>
+</html>

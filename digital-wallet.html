@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Digital Wallet</h1>
+        <div>
+            <p>Current Balance: $<span id="wallet-balance">0.00</span></p>
+        </div>
+        <h2>Top Up Your Wallet</h2>
+        <form id="top-up-form">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" required>
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="card-number" name="card-number" required>
+            <button type="submit">Proceed to OTP Verification</button>
+        </form>
+    </div>
+    <script src="wallet.js"></script>
+    <script src="top-up.js"></script>
+</body>
+</html>

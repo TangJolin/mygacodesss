@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Myspace</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d9e0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f8d9e0;
+            padding: 10px 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 10px;
+        }
+
+        .navbar .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding-right: 30px;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            position: relative;
+            left: -30px;
+            cursor: pointer;
+        }
+
+        main {
+            padding-bottom: 100px; /* Create space for the footer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh; /* Ensure main content area is centered vertically */
+        }
+
+        .content-wrapper {
+            display: flex;
+            align-items: center;
+            max-width: 1000px; /* Increase max-width to accommodate larger image */
+            width: 100%;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 30px; /* Increase margin to provide more space between image and text */
+        }
+
+        .logo-container img {
+            width: 300px; /* Adjust the size as needed */
+            height: auto;
+        }
+
+        .logo-container .email-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #f8d9e0;
+            border: none;
+            border-radius: 5px;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline from the link */
+            display: inline-block; /* Make sure the link behaves like a button */
+        }
+
+        .logo-container .email-button:hover {
+            background-color: #f0b4b4;
+        }
+
+        .about-info {
+            flex: 1;
+        }
+
+        .about-info h1 {
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #f8d9e0;
+            padding: 20px;
+            position: relative;
+            clear: both;
+        }
+
+        .highlighted-text {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">About</a>
+                    <div class="dropdown-content">
+                        <a href="about-me.html">About Me</a>
+                        <a href="who-we-serve.html">Who We Serve</a>
+                        <a href="our-reviews.html">Our Reviews</a>
+                        <a href="our-services.html">Our Services</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="content-wrapper">
+            <div class="logo-container">
+                <img src="myspacelogo.jpg" alt="Myspace Logo">
+                <a href="mailto:example@example.com" class="email-button">Email Me</a>
+            </div>
+            <div class="about-info">
+                <h1>About Me</h1>
+                <p>Welcome to Myspace, where we <b>empower freelancers and small business owners</b> with seamless financial services. Our mission is to simplify the complexities of managing finances, so you can focus on what you do best – running your business. With our user-friendly platform, you can easily track your income, expenses, and invoices, all in one place. Say goodbye to tedious paperwork and hello to effortless financial management. Join us today and take control of your financial future!</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Myspace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            const title = document.getElementById('about-me-title');
+            const content = document.getElementById('about-me-content');
+
+            if (query) {
+                title.innerHTML = highlightText(title.textContent, query);
+                content.innerHTML = highlightText(content.textContent, query);
+            } else {
+                // Reset to original content if search query is empty
+                title.innerHTML = title.textContent;
+                content.innerHTML = content.textContent;
+            }
+        });
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlighted-text">$1</span>');
+        }
+    </script>
+</body>
+</html>

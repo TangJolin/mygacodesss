@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense and Income Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fce4ec; /* Light pink background */
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, button, select {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #f48fb1; /* Pink */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #f06292; /* Darker pink */
+        }
+
+        .result, .breakdown {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expense and Income Calculator</h1>
+        <form id="calculator-form">
+            <h3>Income</h3>
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" name="salary" placeholder="Enter your salary" required>
+
+            <label for="other-income">Other Income:</label>
+            <input type="number" id="other-income" name="other-income" placeholder="Enter other income" required>
+
+            <h3>Expenses</h3>
+            <label for="rent">Rent/Mortgage:</label>
+            <input type="number" id="rent" name="rent" placeholder="Enter rent or mortgage" required>
+
+            <label for="utilities">Utilities:</label>
+            <input type="number" id="utilities" name="utilities" placeholder="Enter utilities expenses" required>
+
+            <label for="food">Food:</label>
+            <input type="number" id="food" name="food" placeholder="Enter food expenses" required>
+
+            <label for="transportation">Transportation:</label>
+            <input type="number" id="transportation" name="transportation" placeholder="Enter transportation expenses" required>
+
+            <label for="other-expenses">Other Expenses:</label>
+            <input type="number" id="other-expenses" name="other-expenses" placeholder="Enter other expenses" required>
+
+            <button type="button" onclick="calculateBalance()">Calculate</button>
+        </form>
+        <div class="result" id="result">
+            <!-- Result will be displayed here -->
+        </div>
+        <div class="breakdown" id="breakdown">
+            <!-- Detailed breakdown will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        function calculateBalance() {
+            // Get values from input fields
+            const salary = parseFloat(document.getElementById('salary').value) || 0;
+            const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
+            const rent = parseFloat(document.getElementById('rent').value) || 0;
+            const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+            const food = parseFloat(document.getElementById('food').value) || 0;
+            const transportation = parseFloat(document.getElementById('transportation').value) || 0;
+            const otherExpenses = parseFloat(document.getElementById('other-expenses').value) || 0;
+
+            // Calculate totals
+            const totalIncome = salary + otherIncome;
+            const totalExpenses = rent + utilities + food + transportation + otherExpenses;
+            const balance = totalIncome - totalExpenses;
+
+            // Display result
+            document.getElementById('result').innerText = `Net Balance: $${balance.toFixed(2)}`;
+
+            // Display breakdown
+            document.getElementById('breakdown').innerHTML = `
+                <h4>Income Breakdown:</h4>
+                <p>Salary: $${salary.toFixed(2)}</p>
+                <p>Other Income: $${otherIncome.toFixed(2)}</p>
+                <h4>Expense Breakdown:</h4>
+                <p>Rent/Mortgage: $${rent.toFixed(2)}</p>
+                <p>Utilities: $${utilities.toFixed(2)}</p>
+                <p>Food: $${food.toFixed(2)}</p>
+                <p>Transportation: $${transportation.toFixed(2)}</p>
+                <p>Other Expenses: $${otherExpenses.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

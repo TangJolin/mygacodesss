@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Myspace</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d9e0;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .btn:hover {
+            background-color: #e0306c;
+        }
+        .plan-image {
+            width: 200px; /* Set the width you prefer */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        header {
+            background-color: #f8d9e0;
+            padding: 10px 20px;
+        }
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="our-services.html">Our Services</a>
+            <a href="cart.html" class="btn">Shopping Cart</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Service Pricing</h1>
+        <p>Choose a subscription plan:</p>
+        <div>
+            <img src="monthly.jpg" alt="Monthly Plan" class="plan-image">
+            <h3>Monthly Plan - $50</h3>
+            <button class="btn" onclick="addToCart('Monthly Plan', 50)">Add to Cart</button>
+        </div>
+        <div>
+            <img src="yearly.jpg" alt="Yearly Plan" class="plan-image">
+            <h3>Yearly Plan - $200</h3>
+            <button class="btn" onclick="addToCart('Yearly Plan', 200)">Add to Cart</button>
+        </div>
+        <br>
+        <a href="cart.html" class="btn">View Cart</a>
+    </div>
+
+    <script>
+        function addToCart(plan, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ plan, price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${plan} added to cart.`);
+        }
+    </script>
+</body>
+</html>

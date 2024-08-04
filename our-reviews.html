@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Reviews - Myspace</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d9e0;
+            color: #333;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 10px;
+        }
+        .navbar .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding-right: 30px;
+        }
+        .search-bar button {
+            background: none;
+            border: none;
+            position: relative;
+            left: -30px;
+            cursor: pointer;
+        }
+        .rating {
+            direction: rtl;
+            unicode-bidi: bidi-override;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .rating input[type="radio"] {
+            display: none;
+        }
+        .rating label {
+            font-size: 2em;
+            color: lightgray;
+            cursor: pointer;
+        }
+        .rating input[type="radio"]:checked ~ label {
+            color: gold;
+        }
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: gold;
+        }
+        .review-form {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .reviews-list {
+            max-width: 600px;
+            margin: 20px auto;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        .review-item {
+            margin-bottom: 20px;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .rating .checked {
+            color: gold;
+        }
+        main {
+            padding-bottom: 100px; /* Create space for the footer */
+        }
+        footer {
+            background-color: #f8d9e0;
+            padding: 20px;
+            position: relative;
+            clear: both;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="home.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">About</a>
+                    <div class="dropdown-content">
+                        <a href="about-me.html">About Me</a>
+                        <a href="who-we-serve.html">Who We Serve</a>
+                        <a href="our-reviews.html">Our Reviews</a>
+                        <a href="our-services.html">Our Services</a>
+                    </div>
+                </li>
+                <li class="search-bar">
+                    <input type="text" id="searchQuery" placeholder="Search...">
+                    <button id="searchButton">Search</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="reviews">
+            <h2>Our Reviews</h2>
+            
+            <!-- Review Submission Form -->
+            <form id="review-form" class="review-form">
+                <h3>Submit Your Review</h3>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="rating">Rating:</label>
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">☆</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">☆</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">☆</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">☆</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">☆</label>
+                </div>
+
+                <label for="review">Review:</label>
+                <textarea id="review" name="review" rows="4" required></textarea>
+
+                <button type="submit">Submit Review</button>
+            </form>
+
+            <!-- Display Reviews -->
+            <div id="reviews-list" class="reviews-list">
+                <!-- Existing reviews can be listed here initially -->
+            </div>
+        </section>
+        
+
+    <footer>
+        <p>&copy; 2024 Myspace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('review-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const rating = document.querySelector('input[name="rating"]:checked')?.value;
+            const review = document.getElementById('review').value;
+
+            if (!name || !rating || !review) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            const reviewsList = document.getElementById('reviews-list');
+
+            const reviewItem = document.createElement('div');
+            reviewItem.classList.add('review-item');
+            reviewItem.classList.add('review');
+
+            const reviewHeader = document.createElement('div');
+            reviewHeader.classList.add('review-header');
+
+            const reviewTitle = document.createElement('h3');
+            reviewTitle.textContent = name;
+
+            const reviewRating = document.createElement('div');
+            reviewRating.classList.add('rating');
+            reviewRating.innerHTML = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+
+            reviewHeader.appendChild(reviewTitle);
+            reviewHeader.appendChild(reviewRating);
+
+            const reviewText = document.createElement('p');
+            reviewText.textContent = review;
+
+            reviewItem.appendChild(reviewHeader);
+            reviewItem.appendChild(reviewText);
+
+            reviewsList.appendChild(reviewItem);
+
+            // Clear the form
+            document.getElementById('review-form').reset();
+        });
+
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            const sections = document.querySelectorAll('section, .review-item');
+
+            let found = false;
+
+            sections.forEach(section => {
+                const titleElement = section.querySelector('h2');
+                const contentElements = section.querySelectorAll('p, .review-item p');
+                const title = titleElement ? titleElement.textContent.toLowerCase() : '';
+                let content = '';
+
+                contentElements.forEach(el => content += el.textContent.toLowerCase());
+
+                if (title.includes(query) || content.includes(query)) {
+                    section.style.display = 'block'; // Show matching section
+                    if (titleElement) titleElement.innerHTML = highlightText(titleElement.textContent, query);
+                    contentElements.forEach(el => el.innerHTML = highlightText(el.textContent, query));
+                    found = true;
+                } else {
+                    section.style.display = 'none'; // Hide non-matching section
+                    if (titleElement) titleElement.innerHTML = titleElement.textContent; // Reset to original text
+                    contentElements.forEach(el => el.innerHTML = el.textContent); // Reset to original text
+                }
+            });
+
+            if (!found) {
+                alert('No results found.');
+            }
+        });
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark class="highlight">$1</mark>');
+        }
+    </script>
+</body>
+</html>
